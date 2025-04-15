@@ -28,23 +28,21 @@ async function main() {
     const uri = "mongodb://localhost:27017/"
     const client = new MongoClient(uri);
 
-    try
-    {
+    try {
         await client.connect();
-        console.log("Connected to MongoDb!");
-
         const db = client.db("testDB");
-        const collection = db.collection("users");
 
-        //Insert a document
-        await collection.insertOne({name: "SyuhadaChe", age: 22 });
-        console.log("Document Inserted!");
+        const driversCollection = db.colection("drivers");
 
-        //Query the document
-        const result = await collection.findOne({ name: "SyuhadaChe"});
-        console.log("Query Result:", result);
+        drivers.forEach(async (driver) => {
+            const result = await driversCollection.insertOne(driver);
+            console.log('New driver created with results: ${result}');
+        });
 
+    } finally {
+        await client.close();
     }
+    
     catch (err)
     {
         console.error("Error: ", err);
