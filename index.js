@@ -58,3 +58,14 @@ async function main() {
 
 
 main();
+
+drivers.forEach(driver => {
+    console.log(driver.name);
+});
+
+drivers.push({
+    name: "Mike Johnson",
+    licenseNumber: "EF789012",
+    rating: 4.9,
+    available: true
+});
